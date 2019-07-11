@@ -1,0 +1,16 @@
+.posts {
+    background: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.post {
+    display: grid;
+    font-size: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: whitesmoke;
+    border-bottom: 2px solid rgba(220, 220, 220, 0.692);
+}
