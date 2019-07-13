@@ -4,24 +4,13 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    justify-items: center;
-    align-content: center;
 }
 
 .post {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     font-size: 24px;
     padding-left: 20px;
     padding-right: 20px;
     background: whitesmoke;
     border-bottom: 2px solid rgba(220, 220, 220, 0.692);
-}
-
-.post img {
-    margin-top: 16px;
-    margin-left: 40px;
-    margin-bottom: 16px;
-    width: 200px;
-    height: auto;
 }

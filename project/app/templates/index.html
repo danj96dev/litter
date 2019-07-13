@@ -9,7 +9,12 @@
 {% block content %}
 <div class='posts'>
     {% for post in posts %}
-    <div class='post'>{{ post.author.username }} says: {{ post.body }}</div>
+
+    <div class='post'>
+        <p>{{ post.author.username }} says: {{ post.body }}</p>
+        <img src={{post.picture}} alt=""> 
+    </div>
+
     {% endfor %}
 </div>
 {% endblock %}

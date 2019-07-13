@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, PostForm
+from app.models import User, Post
 
 
 @app.route('/')
@@ -20,6 +20,9 @@ def index():
             'body': 'The Avengers movie was so cool!'
         }
     ]
+
+    posts = Post.query.all()
+
     return render_template('index.html', title='Home', posts=posts)
 
 
@@ -53,7 +56,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -66,8 +69,19 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
+    posts = Post.query.filter_by(author=user)
     return render_template('user.html', user=user, posts=posts)
+
+@app.route('/create_post/<username>', methods=['GET', 'POST'])
+@login_required
+def create_post(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    form = PostForm()
+    if form.validate_on_submit():
+        new_post = Post(body=form.text.data, author=user, picture=form.pic.data)
+        print(new_post.body)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('create_post.html', form=form)
+    

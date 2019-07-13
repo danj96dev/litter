@@ -1,11 +1,16 @@
 {% extends "base.html" %}
-
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/profile.css')}}">
+{% endblock %}
 {% block content %}
-    <h1>User: {{ user.username }}</h1>
+<div class='posts'>
+    <h1>Posts</h1>
     <hr>
     {% for post in posts %}
-    <p>
-    {{ post.author.username }} says: <b>{{ post.body }}</b>
-    </p>
+    <div class='post'>
+        {{ post.author.username }} says: {{ post.body }}
+    </div>
     {% endfor %}
+</div>
 {% endblock %}
